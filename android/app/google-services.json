@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "26901793207",
+    "firebase_url": "https://instacard-36edb-default-rtdb.firebaseio.com",
+    "project_id": "instacard-36edb",
+    "storage_bucket": "instacard-36edb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26901793207:android:d2ac7091adc5f81dbb0032",
+        "android_client_info": {
+          "package_name": "com.instacard.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxHNdcRfkl6fDOr2Sdyse6ldueJ79Vm7c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
