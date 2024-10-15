@@ -4,6 +4,7 @@ import 'package:card/pages/nfc/view/nfc_write_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../model/card_model.dart';
 import '../edit/edit_view.dart';
 import 'home_controller.dart';
@@ -94,6 +95,7 @@ class HomeView extends StatelessWidget {
           );
         } else {
           final userMap = user.toMap();
+          String contactShare='${user.name}, ${user.phone}, ${user.email}, ${user.address}, ${user.linkedInProfile},';
           String vCardData = createVCard(user.name, user.phone, user.email,user.address);
           final userData = userMap.entries.map((e) => '${e.key}:${e.value}').join('|');
           return SingleChildScrollView(
@@ -178,13 +180,7 @@ class HomeView extends StatelessWidget {
                            SizedBox(width: 5,),
                            IconButton(
                                onPressed: (){
-                                 Get.to(
-                                   EditCardView(
-                                     user: userController.cardInfo.value!,
-                                     isEdit: true,
-                                   ),
-                                   arguments: true,
-                                 );
+                                Share.share(contactShare,subject: 'Contact Information');
                                },
                                icon: Icon(Icons.share_rounded)),
                          ],

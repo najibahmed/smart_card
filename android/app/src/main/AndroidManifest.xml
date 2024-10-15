@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.instacard.app">
-
+    <uses-permission android:name="android.permission.NFC" />
     <application
         android:label="card"
         android:name="${applicationName}"
