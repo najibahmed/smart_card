@@ -1,4 +1,5 @@
 import 'package:card/components/buildContactInfo.dart';
+import 'package:card/components/helper_function.dart';
 import 'package:card/components/ripple.dart';
 import 'package:card/model/card_model.dart';
 import 'package:flutter/material.dart';
@@ -55,11 +56,17 @@ class NfcWriteScreen extends StatelessWidget {
                     twitterHandle: user.twitterHandle,
                     profileImageUrl: user.profileImageUrl
                 );
+                if (nfcController.isNfcEnabled.value) {
+                  nfcController.writeNfcContact(user.name, user.phone, user.email,user.address);
+                } else {
+                  showNfcSettingsDialog(context);
+                }
 
-                nfcController.writeNfcContact(user.name, user.phone, user.email,user.address);
                 },
               child: Text('Tap to Write NFC'),
             ),
+            Text(
+                'NFC is ${nfcController.isNfcEnabled.value ? 'enabled' : 'disabled'}')
           ],
         ),
       ),
