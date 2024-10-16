@@ -4,6 +4,6 @@ String createVCard(String fullName, String phoneNumber, String email, String add
       'FN:$fullName\n'
       'TEL:$phoneNumber\n'
       'EMAIL:$email\n'
-      'ADR:$address\n'
+      // 'ADR;TYPE=home:;;$street;$city;$state;$postalCode;$country\n
       'END:VCARD';
 }

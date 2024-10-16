@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:card/components/helper_function.dart';
 import 'package:card/pages/nfc/view/nfc_readScreen.dart';
 import 'package:card/pages/nfc/view/nfc_write_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../model/card_model.dart';
@@ -179,8 +182,13 @@ class HomeView extends StatelessWidget {
                            Text("Information's",style: TextStyle(fontSize: 22),),
                            SizedBox(width: 5,),
                            IconButton(
-                               onPressed: (){
-                                Share.share(contactShare,subject: 'Contact Information');
+                               onPressed: ()async{
+                                // Share.share(contactShare,subject: 'Contact Information');
+                                 // Save vCard to a file
+                                 File vCardFile = await saveVCardToFile(vCardData,user);
+
+                                 // Share the vCard file
+                                 await shareVCard(vCardFile);
                                },
                                icon: Icon(Icons.share_rounded)),
                          ],
@@ -267,7 +275,18 @@ class HomeView extends StatelessWidget {
       },
     );
   }
+// Save vCard as a file
+  Future<File> saveVCardToFile(String vCardData, CardModel user) async {
+    final directory = await getTemporaryDirectory();
+    final filePath = '${directory.path}/${user.name}.vcf';
+    final file = File(filePath);
+    return file.writeAsString(vCardData);
+  }
 
+  // Share the vCard file
+  Future<void> shareVCard(File vCardFile) async {
+    await Share.shareXFiles([XFile(vCardFile.path)], text: 'Contact information.');
+  }
   void _performLogout() {
     userController.logoutUser();
   }
