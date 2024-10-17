@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         inputDecorationTheme: const InputDecorationTheme(
           border: OutlineInputBorder(),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blue),
+            borderSide: BorderSide(color: Colors.teal),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey),
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             foregroundColor: Colors.white,
-            backgroundColor: Colors.blue,
+            backgroundColor: Colors.orangeAccent.shade400,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.teal,
           foregroundColor: Colors.white,
           elevation: 0,
         ),

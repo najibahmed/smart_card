@@ -16,25 +16,18 @@ class RegisterView extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.add_card,
-                  size: 100,
-                  color: Theme.of(context).colorScheme.primary,
+                SizedBox(
+                  height: 300,
+                  width: double.infinity,
+                  child: Image.asset('assets/registration_1.png',fit: BoxFit.cover,),
                 ),
                 const SizedBox(height: 20),
                 Text(
                   'Welcome to Vcard!',
-                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.onBackground,
+                    style: TextStyle(color: Colors.teal,fontSize: 22,fontWeight: FontWeight.bold),
                   ),
-                ),
                 const SizedBox(height: 10),
-                //  SizedBox(
-                //   height: 100,
-                //   width: double.infinity,
-                //   child: Image.asset('assets/registration_vactor.png',fit: BoxFit.cover,),
-                // ),
+                //
                 const SizedBox(height: 10),
                 // Name Field
                 Obx(() => TextField(
@@ -104,7 +97,7 @@ class RegisterView extends StatelessWidget {
                         // Navigate to login screen
                         Get.back();
                       },
-                      child: const Text('Log In'),
+                      child: const Text('Log In',style: TextStyle(color: Colors.teal)),
                     ),
                   ],
                 ),

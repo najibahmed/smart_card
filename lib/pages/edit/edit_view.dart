@@ -21,89 +21,110 @@ class EditCardView extends StatelessWidget {
         Get.back();
         return false;
       },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(isEdit ? 'Edit Card' : 'Add Card'),
-          centerTitle: true,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () => Get.back(),
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: IconButton(
-                  onPressed: (){
-                    if (_validateFields()) {
-                      controller.saveChanges();
-                    }
-                  },
-                  icon: Row(
-                    children: [
-                      Icon(Icons.save),
-                      Text("Save",style: TextStyle(color: Colors.white),)
-                    ],
-                  )),
-            )
-          ],
+      child: Container(
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image:  AssetImage('assets/bg_2.jpg',),fit: BoxFit.cover)
         ),
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 22.0,vertical: 16),
-          child: ListView(
-            children: [
-              Obx(()=> Center(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: Material(
-                      child: SizedBox(
-                        height: 110,
-                        width: 110,
-                        child: InkWell(
-                          onTap: () {
-                            controller.pickImage(context);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(.30),
-                            ),
-                            child: controller.profilePic.value != null
-                                ?
-                            Image.file(
-                              controller.profilePic.value!,
-                              fit: BoxFit.cover,
-                            ): const Icon(
-                              Icons.add_a_photo,
-                              color: Colors.blue,
-                              size: 60,
+        child: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.black12,
+                    Colors.white,
+
+                  ])
+          ),
+          child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.teal,
+              title: Text(isEdit ? 'Edit Card' : 'Add Card'),
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () => Get.back(),
+              ),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                      onPressed: (){
+                        if (_validateFields()) {
+                          controller.saveChanges();
+                        }
+                      },
+                      icon: Row(
+                        children: [
+                          Icon(Icons.save),
+                          Text("Save",style: TextStyle(color: Colors.white),)
+                        ],
+                      )),
+                )
+              ],
+            ),
+            backgroundColor: Colors.transparent,
+            body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 22.0,vertical: 16),
+              child: ListView(
+                children: [
+                  Obx(()=> Center(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: Material(
+                          child: SizedBox(
+                            height: 110,
+                            width: 110,
+                            child: InkWell(
+                              onTap: () {
+                                controller.pickImage(context);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.withOpacity(.30),
+                                ),
+                                child: controller.profilePic.value != null
+                                    ?
+                                Image.file(
+                                  controller.profilePic.value!,
+                                  fit: BoxFit.cover,
+                                ): const Icon(
+                                  Icons.add_a_photo,
+                                  color: Colors.teal,
+                                  size: 60,
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
+                  const SizedBox(height: 24),
+                  _buildTextField(context, controller.nameController, 'Full Name'),
+                  _buildTextField(context, controller.jobController, 'Job Title'),
+                  _buildTextField(context, controller.companyController, 'Company'),
+                  _buildTextField(context, controller.emailController, 'Email'),
+                  _buildTextField(context, controller.phoneController, 'Phone Number'),
+                  _buildTextField(context, controller.websiteUrlController, 'Website'),
+                  _buildTextField(context, controller.addressController, 'Address'),
+                  _buildTextField(context, controller.linkedInProfileController, 'LinkedIn Profile'),
+                  _buildTextField(context, controller.twitterHandleController, 'Twitter Handle'),
+                  const SizedBox(height: 24),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_validateFields()) {
+                        controller.saveChanges();
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.orangeAccent.shade400
+                    ),
+                    child: const Text('Save Changes'),
+                  ),
+                ],
               ),
-              const SizedBox(height: 24),
-              _buildTextField(context, controller.nameController, 'Full Name'),
-              _buildTextField(context, controller.jobController, 'Job Title'),
-              _buildTextField(context, controller.companyController, 'Company'),
-              _buildTextField(context, controller.emailController, 'Email'),
-              _buildTextField(context, controller.phoneController, 'Phone Number'),
-              _buildTextField(context, controller.websiteUrlController, 'Website'),
-              _buildTextField(context, controller.addressController, 'Address'),
-              _buildTextField(context, controller.linkedInProfileController, 'LinkedIn Profile'),
-              _buildTextField(context, controller.twitterHandleController, 'Twitter Handle'),
-              const SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: () {
-                  if (_validateFields()) {
-                    controller.saveChanges();
-                  }
-                },
-                child: const Text('Save Changes'),
-              ),
-            ],
+            ),
           ),
         ),
       ),
@@ -116,7 +137,9 @@ class EditCardView extends StatelessWidget {
       child: TextField(
         controller: controller.value,
         decoration: InputDecoration(
-          labelText: label,
+          filled: true,
+          hintText: label,
+          hintStyle: TextStyle(color: Colors.teal)
         ),
       ),
     );

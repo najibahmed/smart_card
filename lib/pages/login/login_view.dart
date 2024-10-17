@@ -18,17 +18,14 @@ class LoginView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 200,
+                  height: 300,
                   width: double.infinity,
-                  child: Image.asset('assets/registration_vactor.png',fit: BoxFit.contain,),
+                  child: Image.asset('assets/login_1.jpg',fit: BoxFit.cover,),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 Text(
-                  'Welcome Back!',
-                  style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.onBackground,
-                  ),
+                  'Welcome Back!!',
+                  style: TextStyle(color: Colors.teal,fontSize: 22,fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 30),
 
@@ -90,7 +87,7 @@ class LoginView extends StatelessWidget {
                         // Navigate to register screen
                         Get.to(RegisterView());
                       },
-                      child: const Text('Register'),
+                      child: const Text('Register',style: TextStyle(color: Colors.teal)),
                     ),
                   ],
                 ),

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class Ripples extends StatefulWidget {
   const Ripples({
     this.size = 80.0,
-    this.color = Colors.blue,
+    this.color = Colors.teal,
     required this.onPressed,
     required this.child,
   }) : super();
@@ -81,7 +81,7 @@ class _RipplesState extends State<Ripples> with TickerProviderStateMixin {
             gradient: RadialGradient(
               colors: <Color>[
                 widget.color,
-                Colors.blue
+                Colors.teal
               ],
             ),
           ),

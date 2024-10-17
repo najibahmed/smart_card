@@ -7,6 +7,7 @@ import '../login/login_view.dart';
 
 class HomeController extends GetxController {
   Rx<CardModel?> cardInfo = Rx<CardModel?>(null);
+  RxBool textAnimationFinished = false.obs;
   String defaultAvatar = 'https://avatarfiles.alphacoders.com/375/thumb-1920-375473.jpeg';
   RxBool isLoading = false.obs;
   final DatabaseReference _dbRef = FirebaseDatabase.instance.ref().child('cards');

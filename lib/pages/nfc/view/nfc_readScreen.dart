@@ -12,7 +12,7 @@ class NfcReadScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Read NFC Data')),
+      appBar: AppBar(title: Text('Read NFC Data'),backgroundColor: Colors.teal,),
       body: Center(
         child: Obx(() => Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -38,10 +38,17 @@ class NfcReadScreen extends StatelessWidget {
                       showNfcSettingsDialog(context);
                     }
                   },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.orangeAccent.shade400
+                  ),
                   child: Text('Tap to Read NFC'),
                 ),
+                SizedBox(height: 10,),
                 Text(
-                    'NFC is ${nfcController.isNfcEnabled.value ? 'enabled' : 'disabled'}')
+                    'NFC is ${nfcController.isNfcEnabled.value ? 'enabled' : 'disabled'}',style: TextStyle(
+                  fontSize: 16,
+                  letterSpacing: 1
+                ),)
               ],
             )),
       ),

@@ -14,7 +14,7 @@ class NfcWriteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Write NFC Data')),
+      appBar: AppBar(title: Text('Write NFC Data'),backgroundColor: Colors.teal,),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -61,12 +61,18 @@ class NfcWriteScreen extends StatelessWidget {
                 } else {
                   showNfcSettingsDialog(context);
                 }
-
                 },
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.orangeAccent.shade400
+              ),
               child: Text('Tap to Write NFC'),
             ),
+            SizedBox(height: 10,),
             Text(
-                'NFC is ${nfcController.isNfcEnabled.value ? 'enabled' : 'disabled'}')
+                'NFC is ${nfcController.isNfcEnabled.value ? 'enabled' : 'disabled'}',style: TextStyle(
+                fontSize: 16,
+                letterSpacing: 1
+            ),)
           ],
         ),
       ),
