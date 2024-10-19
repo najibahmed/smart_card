@@ -178,8 +178,8 @@ class HomeView extends StatelessWidget {
                              mainAxisSize: MainAxisSize.min,
                               children: [
                                 Icon(Icons.nfc_outlined),
-                                SizedBox(width: 8,),
-                                Text("Read From NFC"),
+                                SizedBox(width: 4,),
+                                Expanded(child: Text("Read From NFC",style: TextStyle(fontSize: 11),)),
                               ],
 
                             )),
@@ -192,8 +192,8 @@ class HomeView extends StatelessWidget {
                             ),
                             child: Row(
                               children: [
-                                Text("Write To NFC"),
-                                SizedBox(width: 8,),
+                                Expanded(child: Text("Write To NFC",style: TextStyle(fontSize: 11),)),
+                                SizedBox(width: 4,),
                                 Icon(Icons.nfc_outlined),
                               ],
                             )),

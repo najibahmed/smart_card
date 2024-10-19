@@ -1,4 +1,3 @@
-import 'package:app_settings/app_settings.dart';
 import 'package:card/components/helper_function.dart';
 import 'package:card/components/ripple.dart';
 import 'package:card/pages/nfc/nfc_controller/nfc_controller.dart';

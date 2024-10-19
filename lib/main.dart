@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
           elevation: 0,
         ),
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue).copyWith(
-          background: Colors.white,
+          surface: Colors.white,
         ),
       ),
       home: email != null ? HomeView() : LoginView(), // Show HomeView if logged in, otherwise LoginView

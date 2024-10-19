@@ -6,10 +6,12 @@ import 'package:get/get.dart';
 class LoginView extends StatelessWidget {
   final LoginController controller = Get.put(LoginController());
 
+   LoginView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:card/components/helper_function.dart';
-import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:nfc_manager/nfc_manager.dart';
