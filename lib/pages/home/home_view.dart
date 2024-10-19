@@ -20,47 +20,59 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Container(
       decoration: const BoxDecoration(
-        image: DecorationImage(
-          image:  AssetImage('assets/background.jpg',),fit: BoxFit.cover)
-      ),
+          image: DecorationImage(
+              image: AssetImage(
+                'assets/background.jpg',
+              ),
+              fit: BoxFit.cover)),
       child: Container(
         decoration: const BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.topCenter,
+                begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Colors.white,
-                  Colors.white70,
-                  Colors.black54,
-
-                ])
-        ),
+              Colors.white,
+              Colors.white70,
+              Colors.black54,
+            ])),
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
-            title: const Text('InstaCard',style: TextStyle(color: Colors.teal,fontSize: 24),),
+            title: const Text(
+              'InstaCard',
+              style: TextStyle(color: Colors.teal, fontSize: 24),
+            ),
             // centerTitle: true,
             automaticallyImplyLeading: false,
             actions: [
-              Obx(() => !userController.isLoading.value && userController.cardInfo.value != null
+              Obx(() => !userController.isLoading.value &&
+                      userController.cardInfo.value != null
                   ? IconButton(
-                icon: const Icon(Icons.edit,color: Colors.teal,),
-                onPressed: () {
-                  Get.to(
-                    EditCardView(
-                      user: userController.cardInfo.value!,
-                      isEdit: true,
-                    ),
-                    arguments: true,
-                  );
-                },
-              )
+                      icon: const Icon(
+                        Icons.edit,
+                        color: Colors.teal,
+                      ),
+                      onPressed: () {
+                        Get.to(
+                          EditCardView(
+                            user: userController.cardInfo.value!,
+                            isEdit: true,
+                          ),
+                          arguments: true,
+                        );
+                      },
+                    )
                   : Container()),
               IconButton(
-                icon: const Icon(Icons.logout,color: Colors.teal,),
+                icon: const Icon(
+                  Icons.logout,
+                  color: Colors.teal,
+                ),
                 onPressed: () {
                   _showLogoutDialog(context);
                 },
@@ -81,11 +93,11 @@ class HomeView extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                     Text(
+                    Text(
                       "You don't have a card yet!",
                       style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                            fontWeight: FontWeight.bold,
+                          ),
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton(
@@ -117,29 +129,32 @@ class HomeView extends StatelessWidget {
               );
             } else {
               final userMap = user.toMap();
-              String contactShare='${user.name}, ${user.phone}, ${user.email}, ${user.address}, ${user.linkedInProfile},';
-              String vCardData = createVCard(user.name, user.phone, user.email,user.address);
-              final userData = userMap.entries.map((e) => '${e.key}:${e.value}').join('|');
+              String contactShare =
+                  '${user.name}, ${user.phone}, ${user.email}, ${user.address}, ${user.linkedInProfile},';
+              String vCardData =
+                  createVCard(user.name, user.phone, user.email, user.address);
+              final userData =
+                  userMap.entries.map((e) => '${e.key}:${e.value}').join('|');
               return SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 22.0,vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 22.0, vertical: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     CircleAvatar(
-                      radius: 45,
-                      backgroundImage: user.profileImageUrl.isNotEmpty
-                          ? NetworkImage(user.profileImageUrl,scale: 1)
-                          : NetworkImage(userController.defaultAvatar,scale: 1)
-                    ),
+                        radius: 45,
+                        backgroundImage: user.profileImageUrl.isNotEmpty
+                            ? NetworkImage(user.profileImageUrl, scale: 1)
+                            : NetworkImage(userController.defaultAvatar,
+                                scale: 1)),
                     const SizedBox(height: 10),
                     Text(
                       user.name,
                       style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: 1,
-                        fontSize: 18,
-                        color: Colors.black
-                      ),
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 1,
+                          fontSize: 18,
+                          color: Colors.black),
                     ),
                     const SizedBox(height: 4),
                     Text(
@@ -148,8 +163,7 @@ class HomeView extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                           letterSpacing: 1,
                           fontSize: 18,
-                          color: Colors.black
-                      ),
+                          color: Colors.black),
                     ),
                     const SizedBox(height: 15),
                     QrImageView(
@@ -167,37 +181,42 @@ class HomeView extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                        ElevatedButton(
-                            onPressed: (){
-                              Get.to(NfcReadScreen());
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.teal
+                          SizedBox(
+                            height: screenHeight * 0.055,
+                            width: screenWidth * 0.45,
+                            child: ElevatedButton.icon(
+                              onPressed: () {
+                                Get.to(NfcReadScreen());
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.teal),
+                              icon: Icon(
+                                Icons.nfc_outlined,
+                                size: 16,
+                              ),
+                              label: Text("Read From NFC"),
                             ),
-                            child: Row(
-                             mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(Icons.nfc_outlined),
-                                SizedBox(width: 4,),
-                                Expanded(child: Text("Read From NFC",style: TextStyle(fontSize: 11),)),
-                              ],
-
-                            )),
-                        ElevatedButton(
-                            onPressed: (){
-                              Get.to(NfcWriteScreen(user: user,));
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.teal
+                          ),
+                          SizedBox(
+                            height: screenHeight * 0.055,
+                            width: screenWidth * 0.4,
+                            child: ElevatedButton.icon(
+                              onPressed: () {
+                                Get.to(NfcWriteScreen(
+                                  user: user,
+                                ));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.teal),
+                              icon: Icon(
+                                Icons.nfc_outlined,
+                                size: 16,
+                              ),
+                              label: Text("Write To NFC"),
                             ),
-                            child: Row(
-                              children: [
-                                Expanded(child: Text("Write To NFC",style: TextStyle(fontSize: 11),)),
-                                SizedBox(width: 4,),
-                                Icon(Icons.nfc_outlined),
-                              ],
-                            )),
-                      ],),
+                          ),
+                        ],
+                      ),
                     ),
                     Divider(
                       color: Colors.grey[300],
@@ -210,7 +229,7 @@ class HomeView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: InkWell(
-                        onTap: (){
+                        onTap: () {
                           Get.to(OcrPage());
                         },
                         child: Padding(
@@ -219,12 +238,16 @@ class HomeView extends StatelessWidget {
                             children: [
                               ClipRRect(
                                 borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(15), bottomLeft: Radius.circular(15)),
+                                    topLeft: Radius.circular(15),
+                                    bottomLeft: Radius.circular(15)),
                                 child: SizedBox(
-                                  height: 80,
-                                  width: 100,
-                                  child:  Image.asset('assets/business-cards.png',color:Colors.teal,fit: BoxFit.contain,)
-                                ),
+                                    height: 80,
+                                    width: 100,
+                                    child: Image.asset(
+                                      'assets/business-cards.png',
+                                      color: Colors.teal,
+                                      fit: BoxFit.contain,
+                                    )),
                               ),
                               Expanded(
                                 child: Padding(
@@ -232,72 +255,89 @@ class HomeView extends StatelessWidget {
                                     horizontal: 8.0,
                                   ),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         "Scan Visiting Card",
-                                        style:
-                                        const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18),
                                       ),
                                       // SizedBox(height: 10),
                                       Wrap(
                                         children: [
                                           Text(
                                             "Here you can Scan others visiting card and copy the text extracted from it.",
-                                            style:
-                                            const TextStyle(fontWeight: FontWeight.normal, fontSize: 12),
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: 12),
                                           ),
                                         ],
                                       ),
-                                        ],
-                                      ),
+                                    ],
                                   ),
+                                ),
                               )
                             ],
                           ),
                         ),
                       ),
                     ),
+                    Card(
+                      elevation: 5,
+                      shadowColor: Colors.blue,
+                      color: Colors.blue[50],
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 22),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Information's",
+                                  style: TextStyle(fontSize: 22),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                IconButton(
+                                    onPressed: () async {
+                                      // Share.share(contactShare,subject: 'Contact Information');
+                                      // Save vCard to a file
+                                      File vCardFile = await saveVCardToFile(
+                                          vCardData, user);
 
-                   Card(
-                     elevation: 5,
-                     shadowColor: Colors.blue,
-                     color: Colors.blue[50],
-                     child: Padding(
-                       padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 22),
-                       child: Column(
-                         children: [
-                           Row(
-                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                             children: [
-                               Text("Information's",style: TextStyle(fontSize: 22),),
-                               SizedBox(width: 5,),
-                               IconButton(
-                                   onPressed: ()async{
-                                    // Share.share(contactShare,subject: 'Contact Information');
-                                     // Save vCard to a file
-                                     File vCardFile = await saveVCardToFile(vCardData,user);
-
-                                     // Share the vCard file
-                                     await shareVCard(vCardFile);
-                                   },
-                                   icon: Icon(Icons.share_rounded)),
-                             ],
-                           ),
-                           _buildContactInfo(context, Icons.email, user.email, 'Email'),
-                           _buildContactInfo(context, Icons.phone, user.phone, 'Mobile'),
-                           _buildContactInfo(context, Icons.web, user.websiteUrl, 'Website'),
-                           _buildContactInfo(context, Icons.location_on, user.address, 'Address'),
-                           _buildContactInfo(context, Icons.business_center, user.linkedInProfile, 'LinkedIn'),
-                           _buildContactInfo(context, Icons.alternate_email, user.twitterHandle, 'Twitter'),
-                         ],
-                       ),
-                     ),
-                   ),
-                    SizedBox(height: 20,),
+                                      // Share the vCard file
+                                      await shareVCard(vCardFile);
+                                    },
+                                    icon: Icon(Icons.share_rounded)),
+                              ],
+                            ),
+                            _buildContactInfo(
+                                context, Icons.email, user.email, 'Email'),
+                            _buildContactInfo(
+                                context, Icons.phone, user.phone, 'Mobile'),
+                            _buildContactInfo(
+                                context, Icons.web, user.websiteUrl, 'Website'),
+                            _buildContactInfo(context, Icons.location_on,
+                                user.address, 'Address'),
+                            _buildContactInfo(context, Icons.business_center,
+                                user.linkedInProfile, 'LinkedIn'),
+                            _buildContactInfo(context, Icons.alternate_email,
+                                user.twitterHandle, 'Twitter'),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     Center(
                       child: ElevatedButton(
-                          onPressed: (){
+                          onPressed: () {
                             Get.to(
                               EditCardView(
                                 user: userController.cardInfo.value!,
@@ -307,11 +347,12 @@ class HomeView extends StatelessWidget {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.orangeAccent.shade400
-                          ),
+                              backgroundColor: Colors.orangeAccent.shade400),
                           child: Text("Update User Data")),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                   ],
                 ),
               );
@@ -322,7 +363,8 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget _buildContactInfo(BuildContext context, IconData icon, String text, String label) {
+  Widget _buildContactInfo(
+      BuildContext context, IconData icon, String text, String label) {
     final displayText = text.isNotEmpty ? text : 'Not Provided';
 
     return Padding(
@@ -357,20 +399,24 @@ class HomeView extends StatelessWidget {
               onPressed: () {
                 Get.back(); // Close the dialog
               },
-              child: const Text('Cancel',style: TextStyle(color: Colors.teal),),
+              child: const Text(
+                'Cancel',
+                style: TextStyle(color: Colors.teal),
+              ),
             ),
             TextButton(
               onPressed: () {
                 _performLogout();
                 Get.back(); // Close the dialog
               },
-              child: const Text('Logout',style: TextStyle(color: Colors.teal)),
+              child: const Text('Logout', style: TextStyle(color: Colors.teal)),
             ),
           ],
         );
       },
     );
   }
+
 // Save vCard as a file
   Future<File> saveVCardToFile(String vCardData, CardModel user) async {
     final directory = await getTemporaryDirectory();
@@ -381,10 +427,11 @@ class HomeView extends StatelessWidget {
 
   // Share the vCard file
   Future<void> shareVCard(File vCardFile) async {
-    await Share.shareXFiles([XFile(vCardFile.path)], text: 'Contact information.');
+    await Share.shareXFiles([XFile(vCardFile.path)],
+        text: 'Contact information.');
   }
+
   void _performLogout() {
     userController.logoutUser();
   }
 }
-

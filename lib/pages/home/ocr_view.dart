@@ -22,10 +22,6 @@ class _OcrPageState extends State<OcrPage> {
 
   String recognizedText = "No text detected";
   XFile? imageFile;
-  String extractedName = "No name found";
-  String extractedEmail = "No email found";
-  String extractedPhone = "No phone number found";
-  String extractedAddress = "No address found";
   String scannedText = "";
 
   @override
@@ -294,10 +290,6 @@ class _OcrPageState extends State<OcrPage> {
                     ),
                   ),
                   SizedBox(height: 20),
-                  Text('Extracted Name: $extractedName'),
-                  Text('Extracted Email: $extractedEmail'),
-                  Text('Extracted Phone: $extractedPhone'),
-                  Text('Extracted Address: $extractedAddress'),
                 ],
               ):SizedBox(),
 
@@ -344,7 +336,6 @@ class _OcrPageState extends State<OcrPage> {
       setState(() {
         recognizedText = recognizedTextResult.text;
       });
-      _extractDetails(recognizedText);
       scannedText = "";
       for (TextBlock block in recognizedTextResult.blocks) {
         for (TextLine line in block.lines) {
@@ -360,40 +351,7 @@ class _OcrPageState extends State<OcrPage> {
           .close(); // Always close the recognizer to free up resources
     }
   }
-  void _extractDetails(String fullText) {
-    // Simple regex for email and phone numbers
-    final RegExp emailRegExp = RegExp(r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}');
-    final RegExp phoneRegExp = RegExp(r'(\+?\d{1,4}?[-.\s]?)?((\(?\d{3}\)?[-.\s]?)|(\d{3}[-.\s]?))\d{3}[-.\s]?\d{4}');
-    final RegExp nameRegExp = RegExp(r'[A-Z][a-z]+\s[A-Z][a-z]+'); // Assuming full name with first and last name.
-    // Simple regex for addresses (matches common address structures: street number, street name, city, state, postal code)
-    final RegExp addressRegExp = RegExp(r'\d+\s+\w+\s+(Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd|Lane|Ln|Drive|Dr|Court|Ct)\s*,?\s*\w+,\s*\w+\s*\d{5}(-\d{4})?');
-    // Extract email
-    final Iterable<Match> emailMatches = emailRegExp.allMatches(fullText);
-    final Iterable<Match> phoneMatches = phoneRegExp.allMatches(fullText);
-    final Iterable<Match> nameMatches = nameRegExp.allMatches(fullText);
-    final Iterable<Match> addressMatches = addressRegExp.allMatches(fullText);
 
-    setState(() {
-      extractedEmail = emailMatches.isNotEmpty ? emailMatches.first.group(0)! : "No email found";
-      extractedPhone = phoneMatches.isNotEmpty ? phoneMatches.first.group(0)! : "No phone number found";
-      extractedName = nameMatches.isNotEmpty ? nameMatches.first.group(0)! : "No name found";
-      extractedAddress = addressMatches.isNotEmpty ? addressMatches.first.group(0)! : "No address found";
-    });
-  }
-  // void getRecognisedText(XFile image) async {
-  //   final inputImage = InputImage.fromFilePath(image.path);
-  //   final textDetector = Googlete.vision.textDetector();
-  //   RecognisedText recognisedText = await textDetector.processImage(inputImage);
-  //   await textDetector.close();
-  //   scannedText = "";
-  //   for (TextBlock block in recognisedText.blocks) {
-  //     for (TextLine line in block.lines) {
-  //       scannedText = scannedText + line.text + "\n";
-  //     }
-  //   }
-  //   textScanning = false;
-  //   setState(() {});
-  // }
 
   @override
   void initState() {

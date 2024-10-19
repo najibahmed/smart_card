@@ -16,65 +16,67 @@ class NfcWriteScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Write NFC Data'),backgroundColor: Colors.teal,),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Ripples(onPressed: () {}, child: Text('Writing',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),),
-              Card(
-                elevation: 5,
-                shadowColor: Colors.blue,
-                color: Colors.blue[50],
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 22),
-                  child: Column(
-                    children: [
-                      buildContactInfo(context, Icons.person, user.name, 'Name'),
-                      buildContactInfo(context, Icons.email, user.email, 'Email'),
-                      buildContactInfo(context, Icons.phone, user.phone, 'Mobile'),
-                      buildContactInfo(context, Icons.web, user.websiteUrl, 'Website'),
-                      buildContactInfo(context, Icons.location_on, user.address, 'Address'),
-                      buildContactInfo(context, Icons.business_center, user.linkedInProfile, 'LinkedIn'),
-                      buildContactInfo(context, Icons.alternate_email, user.twitterHandle, 'Twitter'),
-                    ],
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Ripples(onPressed: () {}, child: Text('Writing',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),),
+                Card(
+                  elevation: 5,
+                  shadowColor: Colors.blue,
+                  color: Colors.blue[50],
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 22),
+                    child: Column(
+                      children: [
+                        buildContactInfo(context, Icons.person, user.name, 'Name'),
+                        buildContactInfo(context, Icons.email, user.email, 'Email'),
+                        buildContactInfo(context, Icons.phone, user.phone, 'Mobile'),
+                        buildContactInfo(context, Icons.web, user.websiteUrl, 'Website'),
+                        buildContactInfo(context, Icons.location_on, user.address, 'Address'),
+                        buildContactInfo(context, Icons.business_center, user.linkedInProfile, 'LinkedIn'),
+                        buildContactInfo(context, Icons.alternate_email, user.twitterHandle, 'Twitter'),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  var data =CardModel(
-                      name: user.name,
-                      job: user.job,
-                      email: user.email,
-                      identifier: user.identifier,
-                      phone: user.phone,
-                      company: user.company,
-                      websiteUrl: user.websiteUrl,
-                      address: user.address,
-                      linkedInProfile: user.linkedInProfile,
-                      twitterHandle: user.twitterHandle,
-                      profileImageUrl: user.profileImageUrl
-                  );
-                  if (nfcController.isNfcEnabled.value) {
-                    nfcController.writeNfcContact(user.name, user.phone, user.email,user.address);
-                  } else {
-                    showNfcSettingsDialog(context);
-                  }
-                  },
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.orangeAccent.shade400
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    var data =CardModel(
+                        name: user.name,
+                        job: user.job,
+                        email: user.email,
+                        identifier: user.identifier,
+                        phone: user.phone,
+                        company: user.company,
+                        websiteUrl: user.websiteUrl,
+                        address: user.address,
+                        linkedInProfile: user.linkedInProfile,
+                        twitterHandle: user.twitterHandle,
+                        profileImageUrl: user.profileImageUrl
+                    );
+                    if (nfcController.isNfcEnabled.value) {
+                      nfcController.writeNfcContact(user.name, user.phone, user.email,user.address);
+                    } else {
+                      showNfcSettingsDialog(context);
+                    }
+                    },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.orangeAccent.shade400
+                  ),
+                  child: Text('Tap to Write NFC'),
                 ),
-                child: Text('Tap to Write NFC'),
-              ),
-              SizedBox(height: 10,),
-              Text(
-                  'NFC is ${nfcController.isNfcEnabled.value ? 'enabled' : 'disabled'}',style: TextStyle(
-                  fontSize: 16,
-                  letterSpacing: 1
-              ),)
-            ],
+                SizedBox(height: 10,),
+                Text(
+                    'NFC is ${nfcController.isNfcEnabled.value ? 'enabled' : 'disabled'}',style: TextStyle(
+                    fontSize: 16,
+                    letterSpacing: 1
+                ),)
+              ],
+            ),
           ),
         ),
       ),

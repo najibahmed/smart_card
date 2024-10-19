@@ -4,12 +4,12 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 
 class Ripples extends StatefulWidget {
-  const Ripples({super.key, 
+  const Ripples({
     this.size = 80.0,
     this.color = Colors.teal,
     required this.onPressed,
     required this.child,
-  });
+  }) : super();
 
   final double size;
   final Color color;
@@ -31,13 +31,13 @@ class _CirclePainter extends CustomPainter {
 
   void circle(Canvas canvas, Rect rect, double value) {
     final double opacity = (1.0 - (value / 4.0)).clamp(0.0, 1.0);
-    // final Color color = color.withOpacity(opacity);
+    final Color _color = color.withOpacity(opacity);
 
     final double size = rect.width / 2;
     final double area = size * size;
     final double radius = math.sqrt(area * value / 4);
 
-    final Paint paint = Paint()..color = color;
+    final Paint paint = Paint()..color = _color;
     canvas.drawCircle(rect.center, radius, paint);
   }
 
